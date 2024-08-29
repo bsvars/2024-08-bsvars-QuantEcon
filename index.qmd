@@ -1,0 +1,1041 @@
+---
+title: ""
+author: "Tomasz Woźniak"
+email: "tomasz.wozniak@unimelb.edu.au"
+title-slide-attributes:
+  data-background-color: "#00bf63"
+number-sections: false
+format: 
+  revealjs: 
+    footer: "<a href='https://bsvars.github.io'>bsvars.github.io</a>"
+    theme: [simple, theme.scss]
+    transition: concave
+    smaller: false
+    multiplex: true
+    code-line-numbers: false
+execute: 
+  echo: true
+---
+
+```{r}
+#| echo: false
+bspink = "#00bf63"
+bsyell = "#8c52ff"
+bsvars_grad = grDevices::colorRampPalette(c(bspink, bsyell))(5)
+```
+
+
+
+
+
+##  {background-color="#00bf63"}
+
+![](bsvars.png){.absolute top=40 right=540 width="450"}
+![](bsvarSIGNs.png){.absolute top=40 right=10 width="450"}
+
+
+![](QuantEcon.png){.absolute top=550 right=400 width="200"}
+
+
+## {background-color="#00bf63"}
+
+
+### This presentation{style="color:#8c52ff;"}
+
+#### Slides as a [Website](https://bsvars.github.io/2024-08-bsvars-monash/){style="color:#8c52ff;"} {style="color:white;"}
+
+#### GitHub [repo](https://github.com/bsvars/2024-08-bsvars-monash){style="color:#8c52ff;"} to reproduce the slides and results {style="color:white;"}
+
+$$ $$
+
+### Resources{style="color:#8c52ff;"}
+
+#### [bsvars.github.io](https://bsvars.github.io){style="color:#8c52ff;"} {style="color:white;"}
+
+#### [bsvars](https://cran.r-project.org/package=bsvars){style="color:#8c52ff;"} on CRAN {style="color:white;"}
+
+#### [bsvarSIGNs](https://cran.r-project.org/package=bsvarSIGNs){style="color:#8c52ff;"} on CRAN {style="color:white;"}
+
+
+
+
+
+## {background-color="#00bf63"}
+
+![](social@monash.png){.absolute width="735"}
+
+
+##  {background-color="#00bf63"}
+
+$$ $$
+
+$$ $$
+
+### [bsvars](https://bsvars.github.io){style="color:#8c52ff;"} features
+
+### [bsvars](https://bsvars.github.io){style="color:#8c52ff;"} models and identification{style="color:white;"}
+
+### [bsvars](https://bsvars.github.io){style="color:#8c52ff;"} modeling of  monetary policy{style="color:white;"}
+
+
+
+
+
+
+## [bsvars](https://bsvars.github.io){style="color:#8c52ff;"} features {background-color="#00bf63"}
+
+
+
+
+##
+
+:::: {.columns}
+
+::: {.column width="50%"}
+![](bsvars-cran.png){.absolute top=10 width="530"}
+:::
+
+::: {.column width="50%"}
+![](bsvarSIGNs-cran.png){.absolute top=10 width="530"}
+:::
+
+::::
+
+
+
+## [bsvars](https://bsvars.github.io){style="color:#8c52ff;"} features {background-color="#00bf63"}
+
+$$ $$
+
+- Bayesian estimation of Structural VARs
+- coherent code structure, workflows, and objects
+- excellent computational speed
+- frontier econometric techniques
+- efficient and fast Gibbs samplers
+- compiled code using [cpp]{style="color:#8c52ff;"} via [Rcpp](https://cran.r-project.org/package=Rcpp){style="color:#8c52ff;"} and [RcppArmadillo](https://cran.r-project.org/package=RcppArmadillo){style="color:#8c52ff;"}
+- data analysis in [R](https://cran.r-project.org/){style="color:#8c52ff;"}
+
+
+
+
+
+## {background-color="#00bf63"}
+
+:::: {.columns}
+
+::: {.column width="50%"}
+![](bsvars.png){width="150"}
+
+- 5 volatility & 3 non-normal models
+- identification using 
+  - exclusion restrictions
+  - heteroskedasticity, and
+  - non-normality
+- Priors: 3-level eq-specific local-global shrinkage
+:::
+
+::: {.column width="50%"}
+![](bsvarSIGNs.png){width="150"}
+
+- flexible Bayesian VAR
+- identification using 
+  - sign restrictions
+  - sign & zero restrictions
+  - narrative restrictions
+- Priors: Minnesota with dummy observation and estimated shrinkage
+
+:::
+
+::::
+
+
+
+
+
+
+
+## {background-color="#00bf63"}
+
+:::: {.columns}
+
+::: {.column width="50%"}
+![](bsvars.png){width="150"}
+
+- package and data loading
+
+```{r}
+#| eval: false
+library(bsvars)
+data(us_fiscal_lsuw)
+```
+
+- simple model setup
+
+```{r}
+#| eval: false
+spec = specify_bsvar$new(us_fiscal_lsuw)
+```
+
+- simple estimation
+
+```{r}
+#| eval: false
+burn = estimate(spec, S = 1000)
+post = estimate(burn, S = 10000)
+```
+
+:::
+
+::: {.column width="50%"}
+![](bsvarSIGNs.png){width="150"}
+
+- package and data loading
+
+```{r}
+#| eval: false
+library(bsvarSIGNs)
+data(optimism)
+```
+
+- simple model setup
+
+```{r}
+#| eval: false
+spec = specify_bsvarSIGN$new(optimism)
+```
+
+- simple estimation
+
+```{r}
+#| eval: false
+post = estimate(spec, S = 10000)
+```
+
+:::
+
+::::
+
+
+
+
+
+
+## {background-color="#00bf63"}
+
+:::: {.columns}
+
+::: {.column width="50%"}
+![](bsvars.png){width="150"}
+
+- structural analyses
+```{r}
+#| eval: false
+irfs = compute_impulse_responses(post , horizon = 12)
+fevd = compute_variance_decompositions(post, horizon = 12)
+hds  = compute_historical_decompositions(post)
+ss   = compute_structural_shocks(post)
+csds = compute_conditional_sd(post)
+sddr = verify_identification(post)
+```
+
+- predictive analyses
+
+```{r}
+#| eval: false
+fvs  = compute_fitted_values(post)
+fore = forecast(post, horizon = 12)
+```
+
+
+- plots and summaries
+
+```{r}
+#| eval: false
+plot(irfs)
+summary(irfs)
+```
+
+:::
+  
+::: {.column width="50%"}
+![](bsvarSIGNs.png){width="150"}
+
+
+- structural analyses
+```{r}
+#| eval: false
+irfs = compute_impulse_responses(post , horizon = 12)
+fevd = compute_variance_decompositions(post, horizon = 12)
+hds  = compute_historical_decompositions(post)
+ss   = compute_structural_shocks(post)
+csds = compute_conditional_sd(post)
+```
+
+- predictive analyses
+
+```{r}
+#| eval: false
+fvs  = compute_fitted_values(post)
+fore = forecast(post, horizon = 12)
+```
+
+- plots and summaries
+
+```{r}
+#| eval: false
+plot(irfs)
+summary(irfs)
+```
+
+:::
+  
+::::
+
+
+
+## {background-color="#00bf63"}
+
+:::: {.columns}
+
+::: {.column width="50%"}
+![](bsvars.png){width="150"}
+
+- workflow with the pipe
+
+```{r}
+#| eval: false
+library(bsvars)
+data(us_fiscal_lsuw)
+
+us_fiscal_lsuw |> 
+  specify_bsvar$new() |> 
+  estimate(S = 1000) |> 
+  estimate(S = 10000) -> post
+
+post |> compute_impulse_responses(horizon = 12) |> plot()
+post |> compute_variance_decompositions(horizon = 12) |> plot()
+post |> compute_historical_decompositions() |> plot()
+post |> compute_structural_shocks() |> plot()
+post |> compute_conditional_sd() |> plot()
+post |> forecast(horizon = 12) |> plot()
+post |> verify_identification() |> summary()
+```
+:::
+  
+::: {.column width="50%"}
+![](bsvarSIGNs.png){width="150"}
+
+- workflow with the pipe
+
+```{r}
+#| eval: false
+library(bsvarSIGNs)
+data(optimism)
+
+optimism |> 
+  specify_bsvarSIGN$new() |> 
+  estimate(S = 10000) -> post
+
+post |> compute_impulse_responses(horizon = 12) |> plot()
+post |> compute_variance_decompositions(horizon = 12) |> plot()
+post |> compute_historical_decompositions() |> plot()
+post |> compute_structural_shocks() |> plot()
+post |> compute_conditional_sd() |> plot()
+post |> forecast(horizon = 12) |> plot()
+```
+:::
+  
+::::
+
+
+## {background-color="#00bf63"}
+
+:::: {.columns}
+
+::: {.column width="50%"}
+![](bsvars.png){width="150"}
+
+- progress bar
+
+![](bsvars_progress.png){width="500"}
+:::
+  
+::: {.column width="50%"}
+![](bsvarSIGNs.png){width="150"}
+
+- progress bar
+
+![](bsvarSIGNs_progress.png){width="500"}
+:::
+  
+::::
+
+
+
+
+
+
+
+
+## [bsvars](https://bsvars.github.io){style="color:#8c52ff;"} models and identification {background-color="#00bf63"}
+
+
+
+
+
+
+## 
+
+![](bsvars.png){.absolute right=10 width="120"}
+
+$$ $$
+
+### Structural VAR
+\begin{align}
+\text{reduced form:}&&\mathbf{y}_t &= \mathbf{A}\mathbf{x}_t + \boldsymbol{\varepsilon}_t \\
+\text{structural form:}&&\mathbf{B}_0\boldsymbol{\varepsilon}_t &= \mathbf{u}_t \\
+\text{structural shocks:}&&\mathbf{u}_t\mid\mathbf{x}_t &\sim N\left( \mathbf{0}_N, \text{diag}\left(\boldsymbol{\sigma}_t^2\right) \right)
+\end{align}
+
+- interpretable structural specification
+- identification through 
+  - exclusion restrictions
+  - heteroskedasticity
+  - non-normality
+- facilitates application of frontier numerical techniques
+- features 3-level equation-specific local-global prior shrinkage
+
+
+
+
+
+
+## 
+
+![](bsvarSIGNs.png){.absolute right=10 width="120"}
+
+$$ $$
+
+### Structural VAR
+\begin{align}
+\text{reduced form:}&&\mathbf{y}_t &= \mathbf{A}\mathbf{x}_t + \boldsymbol{\varepsilon}_t \\
+\text{error term:}&&\boldsymbol{\varepsilon}_t\mid\mathbf{x}_t &\sim N\left( \mathbf{0}_N, \boldsymbol{\Sigma} \right)\\
+\text{rotation:}&&\mathbf{Q} &\sim Haar \\
+\text{structural form:}&&\left(\mathbf{A}, \boldsymbol{\Sigma}, \mathbf{Q}\right) &\rightarrow\left(\mathbf{A}, \mathbf{B}_0\right)
+\end{align}
+
+- identification through 
+  - sign & zero restrictions on structural matrix or impulse responses
+  - narrative restrictions on shocks
+  - all at once!
+- facilitates independent sampling & application of frontier numerical techniques
+- features Minnesota and dummy observation priors with estimated shrinkage
+
+
+
+
+## 
+
+![](bsvars.png){.absolute right=10 width="120"}
+
+$$ $$
+
+### Non-centred Stochastic Volatility
+
+\begin{align}
+\text{conditional variance:}&&\sigma_{n.t}^2 &= \exp\left\{\omega_n h_{n.t}\right\}\\
+\text{log-volatility:}&&h_{n.t} &= \rho_n h_{n.t-1} + v_{n.t}\\ 
+\text{volatility innovation:}&&v_{n.t}&\sim N\left(0,1\right)\\
+\end{align}
+
+- excellent volatility forecasting performance
+- standardization around $\sigma_{n.t}^2 = 1$
+- `verify_identification()` by checking $H_0:\quad\omega_n = 0$
+
+
+
+
+## 
+
+![](bsvars.png){.absolute right=10 width="120"}
+
+### Stochastic Volatility: conditional variances
+
+
+```{r plot_cv_prior}
+#| echo: false
+p_svnc_log      = function(x,t){
+  # log-variances non-centered SV
+  (pi*sqrt(t*sigma.omega.sq))^(-1)*besselK(abs(x)/sqrt(t*sigma.omega.sq),0)
+}
+p_sv_log        = function(x,t){
+  # log-variances SV
+  gamma((sigma.nu+1)/2)/gamma((sigma.nu)/2)*pi^(-1/2)*((t+1)*sigma.s)^(-1/2)*(1+((t+1)*sigma.s)^(-1)*x^(2))^(-(sigma.nu+1)/2)
+}
+p_svnc          = function(x,t){
+  # variances non-centered SV
+  (pi*sqrt(t*sigma.omega.sq)*x)^(-1)*besselK(abs(log(x))/sqrt(t*sigma.omega.sq),0)
+}
+p_sv            = function(x,t){
+  # variances SV
+  gamma((sigma.nu+1)/2)/gamma((sigma.nu)/2)*pi^(-1/2)*sigma.s^(sigma.nu/2)*(t+1)^(-1/2)*(x)^(-1)*(sigma.s+(t+1)^(-1)*(log(x))^(2))^(-(sigma.nu+1)/2)
+}
+
+T               = 5
+zlimabrar       = 2.5
+grid            = seq(from=-2.5, to=2.5, by=0.00001)
+grid_var        = seq(from=0.00000001, to=3.2, by=0.00001)
+
+s               = 0.1
+sigma.omega.sq  = s   # conditional variance hyper-parameter
+sigma.s         = s   # log-conditional variance hyper-parameter
+sigma.nu        = 3   # log-conditional variance hyper-parameter
+
+plot(
+  x = grid_var, 
+  y = p_svnc(grid_var,T), 
+  type = "l", 
+  main = "", 
+  col = bspink, 
+  lwd = 2,
+  xlim = c(0,3), 
+  ylim = c(0,zlimabrar), 
+  xlab = "conditional variance", 
+  ylab = "density", 
+  frame.plot = FALSE, 
+  axes = FALSE
+)
+lines(
+  x = grid_var, 
+  y = p_sv(grid_var, T), 
+  col = bsyell,
+  lwd = 2
+)
+legend(
+  "topright",
+  legend = c("non-centered", "centered"),
+  col = c(bspink, bsyell),
+  lwd = 2,
+  bty = "n"
+)
+axis(2, c(0,1,2), c(0,1,2))
+axis(1, c(0,1,2,3), c(0,1,2,3))
+abline(h = 0, lwd = 0.5)
+```
+
+
+
+
+
+
+
+## 
+
+![](bsvars.png){.absolute right=10 width="120"}
+
+$$ $$
+
+### Markov-switching and mixture models.
+
+\begin{align}
+\text{structural shocks:}&&\mathbf{u}_t\mid s_t &\sim N\left( \mathbf{0}_N, \text{diag}\left(\boldsymbol{\sigma}_{s_t}^2\right) \right)\\
+\text{prior & standardisation:}&& M^{-1}\left(\boldsymbol{\sigma}_{1}^2, \dots, \boldsymbol{\sigma}_{M}^2\right) &\sim Dirichlet(\underline{a}\boldsymbol\imath')\\
+\text{latent process:}&& s_t&\sim \text{Markov or independent}
+\end{align}
+
+- modeling Markov-switching or mixture models
+- non-normality provides identification information
+- potential gains in forecasting precision
+- `verify_identification()`  by checking $H_0:\quad\boldsymbol{\sigma}_{1}^2, \dots, \boldsymbol{\sigma}_{M}^2 = 1$
+
+
+
+
+
+## 
+
+![](bsvars.png){.absolute right=10 width="120"}
+
+$$ $$
+
+### Student-t shocks.
+
+\begin{align}
+\text{structural shocks:}&&\mathbf{u}_t\mid\mathbf{x}_t &\sim t\left( \mathbf{0}_N, \mathbf{I}_N, \nu \right)
+\end{align}
+
+- $\nu$ - the degrees of freedom parameter is estimated
+- fat tails provide identification information
+- potential gains in forecasting precision
+- robustness to outliers
+- `verify_identification()`  by checking $H_0:\quad\nu \rightarrow\infty$
+
+
+
+
+
+
+
+
+
+
+
+## {background-color="#00bf63"}
+
+![](bsvars.png){.absolute right=10 width="120"}
+
+### Student-t shocks.{style="color:#FFFFFF;"}
+```{r}
+#| echo: false
+set.seed(1)
+
+ax_lim = 3.6
+T = 500
+df = 3
+B = matrix(c(1,-1,1,1), 2, 2)
+Bit = t(solve(B))
+en = matrix(rnorm(2 * T), T, 2)
+et = sqrt((df - 2) / df) * matrix(rt(2 * T, df = df), T, 2)
+
+yn = en %*% Bit
+yt = et %*% Bit
+
+par(
+  bg = "#00bf63",
+  mfrow = c(1,2),
+  col = scales::alpha("#8c52ff", .5),
+  col.main = "#8c52ff",
+  col.lab = "#8c52ff"
+)
+plot(
+  x = yn[,1], y = yn[,2], 
+  ylim = c(-ax_lim, ax_lim), 
+  xlim = c(-ax_lim, ax_lim),
+  bty="n", pch = 16,
+  ylab = "y", xlab = "x",
+  axes = FALSE,
+  main = "normal"
+)
+abline(a = 0, b = 1, col = "#8c52ff")
+abline(a = 0, b = -1, col = "#8c52ff")
+
+plot(
+  x = yt[,1], y = yt[,2], 
+  ylim = c(-ax_lim, ax_lim), 
+  xlim = c(-ax_lim, ax_lim),
+  bty="n", pch = 16,
+  ylab = "", xlab = "x",
+  axes = FALSE,
+  main = "non-normal"
+)
+abline(a = 0, b = 1, col = "#8c52ff")
+abline(a = 0, b = -1, col = "#8c52ff")
+
+```
+
+
+
+
+## 
+
+![](bsvars.png){.absolute right=10 width="120"}
+
+$$ $$
+
+### Identification verification via SDDR.
+
+Verify the restriction through the posterior odds ratio using the SDDR:
+$$
+SDDR = \frac{\Pr[H_0 | data]}{\Pr[H_1 | data]}= \frac{p(H_0 | data)}{p(H_0 )}
+$$
+
+- suitable to verify sharp restrictions on parameters
+- is interpreted as posterior odds ratio
+- values greater than 1 provide evidence in favour of the restriction
+- simple to compute given the unrestricted model estimation output
+- see methods `verify_identification()` and `verify_autoregression()`
+
+
+
+
+
+
+## [bsvars](https://bsvars.github.io){style="color:#8c52ff;"} modeling of  monetary policy{background-color="#00bf63"}
+
+
+
+## [bsvars](https://bsvars.github.io){style="color:#8c52ff;"} modeling of  monetary policy
+
+### Australian domestic sector.
+
+Consider a system of five domestic variables:
+
+\begin{align}
+y_t = \begin{bmatrix} rgdp_t & cpi_t & CR_t & EX_t & aord_t \end{bmatrix}'
+\end{align}
+
+- $rgdp_t$ - log real Gross Domestic Product
+- $cpi_t$ - log Consumer Price Index
+- $CR_t$ - Cash Rate Target - Australian nominal interest rate
+- $EX_t$ - USD/AUD exchange rate
+- $aord_t$ - log All Ordinaries Index
+
+- monthly data from August 1990 to March 2024
+- quarterly variables interpolated to monthly frequency
+
+
+
+
+## [bsvars](https://bsvars.github.io){style="color:#8c52ff;"} modeling of  monetary policy
+
+### Foreign sector.
+
+The foreign sector includes three US variables:
+
+- $rgdp_t^{(US)}$ - log real Gross Domestic Product
+- $cpi_t^{(US)}$ - log Consumer Price Index
+- $FFR_t$ - Cash Rate Target - Australian nominal interest rate
+- monthly data from August 1990 to March 2024
+- quarterly variables interpolated to monthly frequency
+- contemporaneous and four lagged values are included in the model as exogenous variables
+
+
+
+## 
+
+![](bsvars.png){.absolute right=10 width="120"}
+
+$$ $$
+
+### Zero-restriction-identified system.
+
+\begin{align}
+\begin{bmatrix}
+B_{0.11}&0&0&0&0\\
+B_{0.21}&B_{0.22}&0&0&0\\
+B_{0.31}&B_{0.32}&B_{0.33}&0&0\\
+B_{0.41}&B_{0.42}&B_{0.43}&B_{0.44}&0\\
+B_{0.51}&B_{0.52}&B_{0.53}&B_{0.54}&B_{0.55}
+\end{bmatrix}
+\begin{bmatrix}rgdp_t \\ cpi_t \\ CR_t \\ EX_t\\ aord_t \end{bmatrix} &= \dots +
+\begin{bmatrix} u_t^{ad} \\ u_t^{as} \\ u_t^{mps} \\ u_t^{ex} \\ u_t^{aord} \end{bmatrix}
+\end{align}
+
+### Identified shocks.
+
+- $u_t^{mps}$ - identified via Taylor's Rule extended by exchange rate
+- $u_t^{ex}$ - currency shock indistinguishable from the monetary policy shock
+
+
+
+
+
+
+## 
+
+![](bsvars.png){.absolute right=10 width="120"}
+
+$$ $$
+
+### Specify and estimate the SVAR-SV.
+
+```{r spec_lt}
+#| eval: false
+
+library(bsvars)
+load("soe.rda")
+soe           = as.matrix(soe)
+
+TT            = nrow(soe)
+lag_order     = 8
+lag_exogenous = 4
+T             = TT - max(lag_order, lag_exogenous)
+
+exogenous     = matrix(NA, TT - lag_exogenous, 0)
+for (i in 0:lag_exogenous) {
+  exogenous   = cbind(exogenous, as.matrix(soe[(lag_exogenous - i + 1):(TT - i), 6:8]))
+}
+
+set.seed(1234)
+spec          = specify_bsvar_sv$new(
+  data        = tail(soe[,1:5], T),
+  p           = lag_order,
+  exogenous   = tail(exogenous, T)
+)
+
+burn          = estimate(spec, 1e4)
+post          = estimate(burn, 1e4)
+```
+
+
+```{r load00}
+#| echo: false
+#| cache: true
+library(bsvars)
+load("bsvars01.rda")
+```
+
+
+## 
+
+![](bsvars.png){.absolute right=10 width="120"}
+
+$$ $$
+
+### SVAR-SV: Compute and plot impulse responses.
+
+```{r bs00}
+#| cache: true
+post |> compute_impulse_responses(horizon = 60) |> plot(probability = 0.68, col = "#00bf63")
+
+```
+
+
+## 
+
+![](bsvars.png){.absolute right=10 width="120"}
+
+$$ $$
+
+### SVAR-SV: Forecast error variance decompositions.
+
+```{r bs00fevd}
+#| cache: true
+post |> compute_variance_decompositions(horizon = 60) |> plot(col = bsvars_grad)
+
+```
+
+
+## 
+
+![](bsvars.png){.absolute right=10 width="120"}
+
+$$ $$
+
+### SVAR-SV: Structural shocks.
+
+```{r bs00sss}
+#| cache: true
+post |> compute_structural_shocks() |> plot(col = "#00bf63")
+
+```
+
+
+
+## 
+
+![](bsvars.png){.absolute right=10 width="120"}
+
+$$ $$
+
+### SVAR-SV: Shocks' conditional standard deviations.
+
+```{r bs00csd}
+#| cache: true
+post |> compute_conditional_sd() |> plot(col = "#00bf63")
+
+```
+
+
+## 
+
+![](bsvars.png){.absolute right=10 width="120"}
+
+$$ $$
+
+### SVAR-SV: identification verification.
+
+```{r bs00vv}
+#| cache: true
+post |> verify_identification() |> summary()
+
+```
+
+
+
+## 
+
+![](bsvars.png){.absolute right=10 width="120"}
+
+$$ $$
+
+### SVAR-SV: Fitted Values.
+
+```{r bs00fit}
+#| cache: true
+post |> compute_fitted_values() |> plot(col = "#00bf63")
+
+```
+
+
+
+## 
+
+![](bsvars.png){.absolute right=10 width="120"}
+
+$$ $$
+
+### SVAR-SV: Does foreign sector matter?
+
+```{r bs00va}
+#| cache: true
+
+A0 = matrix(NA, 5, 56)
+A0[,45:56] = 0
+post |> verify_autoregression(hypothesis = A0) |> summary()
+
+```
+
+
+
+
+
+## 
+
+![](bsvarSIGNs.png){.absolute right=10 width="120"}
+
+$$ $$
+
+### Sign-restricted system.
+
+\begin{align}
+\begin{bmatrix}rgdp_t \\ cpi_t \\ CR_t \\ EX_t\\ aord_t \end{bmatrix} &= \dots +
+\begin{bmatrix}
+-&*&*&*&*\\
+-&*&*&*&*\\
++&*&*&*&*\\
+*&*&*&*&*\\
+*&*&*&*&*\\
+\end{bmatrix}\begin{bmatrix} u_t^{ad} \\ u_t^{as} \\ u_t^{mps} \\ u_t^{ex} \\ u_t^{aord} \end{bmatrix}
+\end{align}
+
+### Identified shocks.
+
+- $u_t^{mps}$ - identified via Taylor's Rule extended by exchange rate
+- $u_t^{ex}$ - currency shock indistinguishable from the monetary policy shock
+- identification through heteroskedasticity helps identifying the shocks
+
+
+
+
+
+## 
+
+![](bsvarSIGNs.png){.absolute right=10 width="120"}
+
+$$ $$
+
+### Specify and estimate a sign-restricted SVAR.
+
+```{r spec01}
+#| eval: false
+
+sign_irf0     = matrix(c(-1, -1, 1, rep(NA, 22)), 5, 5)
+sign_irf      = array(NA, c(5, 5, 6))
+for (i in 1:6) sign_irf[,,i] = sign_irf0
+
+set.seed(1234)
+spec          = specify_bsvarSIGN$new(
+  data        = tail(soe[,1:5], T),
+  p           = lag_order,
+  exogenous   = tail(exogenous, T),
+  sign_irf    = sign_irf
+)
+
+post          = estimate(spec, 1e4)
+
+sign_irf0
+```
+
+
+```{r spec011}
+#| echo: false
+
+sign_irf0     = matrix(c(-1, -1, 1, rep(NA, 22)), 5, 5)
+sign_irf0
+```
+
+
+
+```{r load01}
+#| echo: false
+#| cache: true
+library(bsvarSIGNs)
+load("bsvars07.rda")
+```
+
+
+
+
+
+## 
+
+![](bsvarSIGNs.png){.absolute right=10 width="120"}
+
+$$ $$
+
+### SVAR: Compute and plot impulse responses.
+
+```{r bs01}
+#| cache: true
+post |> compute_impulse_responses(horizon = 60) |> plot(probability = 0.68, col = "#00bf63" )
+```
+
+
+## 
+
+![](bsvarSIGNs.png){.absolute right=10 width="120"}
+
+$$ $$
+
+### SVAR: Forecast error variance decompositions.
+
+```{r bs01fevd}
+#| cache: true
+post |> compute_variance_decompositions(horizon = 60) |> plot(col = bsvars_grad )
+```
+
+
+## 
+
+![](bsvarSIGNs.png){.absolute right=10 width="120"}
+
+$$ $$
+
+### SVAR: Structural shocks.
+
+```{r bs01sss}
+#| cache: true
+post |> compute_structural_shocks() |> plot(col = "#00bf63" )
+```
+
+
+
+## 
+
+![](bsvarSIGNs.png){.absolute right=10 width="120"}
+
+$$ $$
+
+### SVAR: Fitted values.
+
+```{r bs01ff}
+#| cache: true
+post |> compute_fitted_values() |> plot(col = "#00bf63" )
+```
+
+
+
+
+
+##  {background-color="#00bf63"}
+
+![](bsvars.png){.absolute top=40 right=540 width="500"}
+![](bsvarSIGNs.png){.absolute top=40 right=10 width="500"}
+
+
+
+
+
+
+
