@@ -392,14 +392,18 @@
 
 <section id="section" class="slide level2" data-background-color="#00bf63">
 <h2></h2>
-<p><img data-src="bsvars.png" class="absolute" style="top: 40px; right: 540px; width: 450px; "> <img data-src="bsvarSIGNs.png" class="absolute" style="top: 40px; right: 10px; width: 450px; "></p>
-<p><img data-src="QuantEcon.png" class="absolute" style="top: 550px; right: 400px; width: 200px; "></p>
+<p><img data-src="bsvars.png" class="absolute" style="top: 70px; right: 540px; width: 450px; "> <img data-src="bsvarSIGNs.png" class="absolute" style="top: 70px; right: 10px; width: 450px; "></p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="https://quantecon.org/"><img data-src="QuantEcon.png" data-top="550" data-right="400" width="200"></a></p>
+</figure>
+</div>
 </section>
 <section id="section-1" class="slide level2" data-background-color="#00bf63">
 <h2></h2>
 <h3 style="color:#8c52ff;" id="this-presentation">This presentation</h3>
-<h4 style="color:white;" id="slides-as-a-website">Slides as a <a href="https://bsvars.github.io/2024-08-bsvars-monash/" style="color:#8c52ff;">Website</a></h4>
-<h4 style="color:white;" id="github-repo-to-reproduce-the-slides-and-results">GitHub <a href="https://github.com/bsvars/2024-08-bsvars-monash" style="color:#8c52ff;">repo</a> to reproduce the slides and results</h4>
+<h4 style="color:white;" id="slides-as-a-website">Slides as a <a href="https://bsvars.github.io/2024-08-bsvars-QuantEcon/" style="color:#8c52ff;">Website</a></h4>
+<h4 style="color:white;" id="github-repo-to-reproduce-the-slides-and-results">GitHub <a href="https://github.com/bsvars/2024-08-bsvars-QuantEcon" style="color:#8c52ff;">repo</a> to reproduce the slides and results</h4>
 <p><span class="math display">\[ \]</span></p>
 <h3 style="color:#8c52ff;" id="resources">Resources</h3>
 <h4 style="color:white;" id="bsvars.github.io"><a href="https://bsvars.github.io" style="color:#8c52ff;">bsvars.github.io</a></h4>
@@ -433,7 +437,6 @@
 </section>
 <section id="bsvars-features-2" class="slide level2" data-background-color="#00bf63">
 <h2><a href="https://bsvars.github.io" style="color:#8c52ff;">bsvars</a> features</h2>
-<p><span class="math display">\[ \]</span></p>
 <ul>
 <li>Bayesian estimation of Structural VARs</li>
 <li>coherent code structure, workflows, and objects</li>
@@ -450,8 +453,7 @@
 <div class="column" style="width:50%;">
 <p><img data-src="bsvars.png" width="150"></p>
 <ul>
-<li>5 volatility &amp; 3 non-normal models</li>
-<li>identification using
+<li>5 volatility &amp; 3 non-normal models
 <ul>
 <li>exclusion restrictions</li>
 <li>heteroskedasticity, and</li>
@@ -462,8 +464,7 @@
 </div><div class="column" style="width:50%;">
 <p><img data-src="bsvarSIGNs.png" width="150"></p>
 <ul>
-<li>flexible Bayesian VAR</li>
-<li>identification using
+<li>flexible Bayesian VAR
 <ul>
 <li>sign restrictions</li>
 <li>sign &amp; zero restrictions</li>
@@ -539,32 +540,42 @@
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>csds <span class="ot">=</span> <span class="fu">compute_conditional_sd</span>(post)</span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>sddr <span class="ot">=</span> <span class="fu">verify_identification</span>(post)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<ul>
-<li>predictive analyses</li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>fvs  <span class="ot">=</span> <span class="fu">compute_fitted_values</span>(post)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>fore <span class="ot">=</span> <span class="fu">forecast</span>(post, <span class="at">horizon =</span> <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<ul>
-<li>plots and summaries</li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(irfs)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(irfs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 </div><div class="column" style="width:50%;">
 <p><img data-src="bsvarSIGNs.png" width="150"></p>
 <ul>
 <li>structural analyses</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>irfs <span class="ot">=</span> <span class="fu">compute_impulse_responses</span>(post , <span class="at">horizon =</span> <span class="dv">12</span>)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>fevd <span class="ot">=</span> <span class="fu">compute_variance_decompositions</span>(post, <span class="at">horizon =</span> <span class="dv">12</span>)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>hds  <span class="ot">=</span> <span class="fu">compute_historical_decompositions</span>(post)</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>ss   <span class="ot">=</span> <span class="fu">compute_structural_shocks</span>(post)</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>csds <span class="ot">=</span> <span class="fu">compute_conditional_sd</span>(post)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>irfs <span class="ot">=</span> <span class="fu">compute_impulse_responses</span>(post , <span class="at">horizon =</span> <span class="dv">12</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>fevd <span class="ot">=</span> <span class="fu">compute_variance_decompositions</span>(post, <span class="at">horizon =</span> <span class="dv">12</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>hds  <span class="ot">=</span> <span class="fu">compute_historical_decompositions</span>(post)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>ss   <span class="ot">=</span> <span class="fu">compute_structural_shocks</span>(post)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>csds <span class="ot">=</span> <span class="fu">compute_conditional_sd</span>(post)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</div>
+</div>
+</section>
+<section id="section-8" class="slide level2" data-background-color="#00bf63">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img data-src="bsvars.png" width="150"></p>
+<ul>
+<li>predictive analyses</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>fvs  <span class="ot">=</span> <span class="fu">compute_fitted_values</span>(post)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>fore <span class="ot">=</span> <span class="fu">forecast</span>(post, <span class="at">horizon =</span> <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>plots and summaries</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(irfs)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(irfs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" style="width:50%;">
+<p><img data-src="bsvarSIGNs.png" width="150"></p>
 <ul>
 <li>predictive analyses</li>
 </ul>
@@ -582,7 +593,7 @@
 </div>
 </div>
 </section>
-<section id="section-8" class="slide level2" data-background-color="#00bf63">
+<section id="section-9" class="slide level2" data-background-color="#00bf63">
 <h2></h2>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -630,7 +641,7 @@
 </div>
 </div>
 </section>
-<section id="section-9" class="slide level2" data-background-color="#00bf63">
+<section id="section-10" class="slide level2" data-background-color="#00bf63">
 <h2></h2>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -651,10 +662,9 @@
 <section id="bsvars-models-and-identification-1" class="slide level2" data-background-color="#00bf63">
 <h2><a href="https://bsvars.github.io" style="color:#8c52ff;">bsvars</a> models and identification</h2>
 </section>
-<section id="section-10" class="slide level2">
+<section id="section-11" class="slide level2">
 <h2></h2>
 <p><img data-src="bsvars.png" class="absolute" style="right: 10px; width: 120px; "></p>
-<p><span class="math display">\[ \]</span></p>
 <h3 id="structural-var">Structural VAR</h3>
 <p><span class="math display">\[\begin{align}
 \text{reduced form:}&amp;&amp;\mathbf{y}_t &amp;= \mathbf{A}\mathbf{x}_t + \boldsymbol{\varepsilon}_t \\
@@ -663,44 +673,35 @@
 \end{align}\]</span></p>
 <ul>
 <li>interpretable structural specification</li>
-<li>identification through
-<ul>
-<li>exclusion restrictions</li>
-<li>heteroskedasticity</li>
-<li>non-normality</li>
-</ul></li>
+<li>identification via: exclusion restrictions, heteroskedasticity, and/or non-normality</li>
 <li>facilitates application of frontier numerical techniques</li>
 <li>features 3-level equation-specific local-global prior shrinkage</li>
 </ul>
 </section>
-<section id="section-11" class="slide level2">
+<section id="section-12" class="slide level2">
 <h2></h2>
 <p><img data-src="bsvarSIGNs.png" class="absolute" style="right: 10px; width: 120px; "></p>
-<p><span class="math display">\[ \]</span></p>
 <h3 id="structural-var-1">Structural VAR</h3>
 <p><span class="math display">\[\begin{align}
+&amp;\\
 \text{reduced form:}&amp;&amp;\mathbf{y}_t &amp;= \mathbf{A}\mathbf{x}_t + \boldsymbol{\varepsilon}_t \\
 \text{error term:}&amp;&amp;\boldsymbol{\varepsilon}_t\mid\mathbf{x}_t &amp;\sim N\left( \mathbf{0}_N, \boldsymbol{\Sigma} \right)\\
 \text{rotation:}&amp;&amp;\mathbf{Q} &amp;\sim Haar \\
 \text{structural form:}&amp;&amp;\left(\mathbf{A}, \boldsymbol{\Sigma}, \mathbf{Q}\right) &amp;\rightarrow\left(\mathbf{A}, \mathbf{B}_0\right)
 \end{align}\]</span></p>
 <ul>
-<li>identification through
-<ul>
-<li>sign &amp; zero restrictions on structural matrix or impulse responses</li>
-<li>narrative restrictions on shocks</li>
-<li>all at once!</li>
-</ul></li>
-<li>facilitates independent sampling &amp; application of frontier numerical techniques</li>
-<li>features Minnesota and dummy observation priors with estimated shrinkage</li>
+<li>identification through</li>
+<li>sign &amp; zero restrictions on structural matrix or impulse responses, and narrative restrictions on shocks</li>
+<li>independent sampling &amp; numerical techniques</li>
+<li>estimated Minnesota and dummy observation priors</li>
 </ul>
 </section>
-<section id="section-12" class="slide level2">
+<section id="section-13" class="slide level2">
 <h2></h2>
 <p><img data-src="bsvars.png" class="absolute" style="right: 10px; width: 120px; "></p>
-<p><span class="math display">\[ \]</span></p>
 <h3 id="non-centred-stochastic-volatility">Non-centred Stochastic Volatility</h3>
 <p><span class="math display">\[\begin{align}
+&amp;\\
 \text{conditional variance:}&amp;&amp;\sigma_{n.t}^2 &amp;= \exp\left\{\omega_n h_{n.t}\right\}\\
 \text{log-volatility:}&amp;&amp;h_{n.t} &amp;= \rho_n h_{n.t-1} + v_{n.t}\\
 \text{volatility innovation:}&amp;&amp;v_{n.t}&amp;\sim N\left(0,1\right)\\
@@ -708,10 +709,10 @@
 <ul>
 <li>excellent volatility forecasting performance</li>
 <li>standardization around <span class="math inline">\(\sigma_{n.t}^2 = 1\)</span></li>
-<li><code>verify_identification()</code> by checking <span class="math inline">\(H_0:\quad\omega_n = 0\)</span></li>
+<li><code>verify_identification()</code> by checking <span class="math inline">\(H_0:\omega_n = 0\)</span></li>
 </ul>
 </section>
-<section id="section-13" class="slide level2">
+<section id="section-14" class="slide level2">
 <h2></h2>
 <p><img data-src="bsvars.png" class="absolute" style="right: 10px; width: 120px; "></p>
 <h3 id="stochastic-volatility-conditional-variances">Stochastic Volatility: conditional variances</h3>
@@ -721,29 +722,29 @@
 </div>
 </div>
 </section>
-<section id="section-14" class="slide level2">
-<h2></h2>
-<p><img data-src="bsvars.png" class="absolute" style="right: 10px; width: 120px; "></p>
-<p><span class="math display">\[ \]</span></p>
-<h3 id="markov-switching-and-mixture-models.">Markov-switching and mixture models.</h3>
-<p><span class="math display">\[\begin{align}
-\text{structural shocks:}&amp;&amp;\mathbf{u}_t\mid s_t &amp;\sim N\left( \mathbf{0}_N, \text{diag}\left(\boldsymbol{\sigma}_{s_t}^2\right) \right)\\
-\text{prior &amp; standardisation:}&amp;&amp; M^{-1}\left(\boldsymbol{\sigma}_{1}^2, \dots, \boldsymbol{\sigma}_{M}^2\right) &amp;\sim Dirichlet(\underline{a}\boldsymbol\imath')\\
-\text{latent process:}&amp;&amp; s_t&amp;\sim \text{Markov or independent}
-\end{align}\]</span></p>
-<ul>
-<li>modeling Markov-switching or mixture models</li>
-<li>non-normality provides identification information</li>
-<li>potential gains in forecasting precision</li>
-<li><code>verify_identification()</code> by checking <span class="math inline">\(H_0:\quad\boldsymbol{\sigma}_{1}^2, \dots, \boldsymbol{\sigma}_{M}^2 = 1\)</span></li>
-</ul>
-</section>
 <section id="section-15" class="slide level2">
 <h2></h2>
 <p><img data-src="bsvars.png" class="absolute" style="right: 10px; width: 120px; "></p>
-<p><span class="math display">\[ \]</span></p>
+<h3 id="markov-switching-and-mixture-models.">Markov-switching and mixture models.</h3>
+<p><span class="math display">\[\begin{align}
+&amp;\\
+\text{structural shocks:}&amp;&amp;\mathbf{u}_t\mid s_t \sim N\left( \mathbf{0}_N, \text{diag}\left(\boldsymbol{\sigma}_{s_t}^2\right) \right)\\
+\text{prior:}&amp;&amp; M^{-1}\left(\boldsymbol{\sigma}_{1}^2, \dots, \boldsymbol{\sigma}_{M}^2\right) \sim Dirichlet(\underline{a}\boldsymbol\imath')\\
+\text{latent process:}&amp;&amp; s_t\sim \text{Markov or independent}
+\end{align}\]</span></p>
+<ul>
+<li>modelling Markov-switching or mixture models</li>
+<li>non-normality provides identification information</li>
+<li>potential gains in forecasting precision</li>
+<li><code>verify_identification()</code> by checking <span class="math inline">\(H_0:\boldsymbol{\sigma}_{1}^2, \dots, \boldsymbol{\sigma}_{M}^2 = 1\)</span></li>
+</ul>
+</section>
+<section id="section-16" class="slide level2">
+<h2></h2>
+<p><img data-src="bsvars.png" class="absolute" style="right: 10px; width: 120px; "></p>
 <h3 id="student-t-shocks.">Student-t shocks.</h3>
 <p><span class="math display">\[\begin{align}
+&amp;&amp;&amp;\\
 \text{structural shocks:}&amp;&amp;\mathbf{u}_t\mid\mathbf{x}_t &amp;\sim t\left( \mathbf{0}_N, \mathbf{I}_N, \nu \right)
 \end{align}\]</span></p>
 <ul>
@@ -751,33 +752,32 @@
 <li>fat tails provide identification information</li>
 <li>potential gains in forecasting precision</li>
 <li>robustness to outliers</li>
-<li><code>verify_identification()</code> by checking <span class="math inline">\(H_0:\quad\nu \rightarrow\infty\)</span></li>
+<li><code>verify_identification()</code> by checking <span class="math inline">\(H_0:\nu \rightarrow\infty\)</span></li>
 </ul>
 </section>
-<section id="section-16" class="slide level2" data-background-color="#00bf63">
+<section id="section-17" class="slide level2" data-background-color="#00bf63">
 <h2></h2>
 <p><img data-src="bsvars.png" class="absolute" style="right: 10px; width: 120px; "></p>
-<h3 style="color:#FFFFFF;" id="student-t-shocks.-1">Student-t shocks.</h3>
+<h3 style="color:#FFFFFF;" id="heteroskedastic-or-non-normal-shocks.">Heteroskedastic or non-normal shocks.</h3>
 <div class="cell">
 <div class="cell-output-display">
 <p><img data-src="index_files/figure-revealjs/unnamed-chunk-16-1.png" width="960"></p>
 </div>
 </div>
 </section>
-<section id="section-17" class="slide level2">
+<section id="section-18" class="slide level2">
 <h2></h2>
 <p><img data-src="bsvars.png" class="absolute" style="right: 10px; width: 120px; "></p>
-<p><span class="math display">\[ \]</span></p>
 <h3 id="identification-verification-via-sddr.">Identification verification via SDDR.</h3>
-<p>Verify the restriction through the posterior odds ratio using the SDDR: <span class="math display">\[
+<p><span class="math display">\[
 SDDR = \frac{\Pr[H_0 | data]}{\Pr[H_1 | data]}= \frac{p(H_0 | data)}{p(H_0 )}
 \]</span></p>
 <ul>
 <li>suitable to verify sharp restrictions on parameters</li>
 <li>is interpreted as posterior odds ratio</li>
-<li>values greater than 1 provide evidence in favour of the restriction</li>
-<li>simple to compute given the unrestricted model estimation output</li>
-<li>see methods <code>verify_identification()</code> and <code>verify_autoregression()</code></li>
+<li>values greater than 1: evidence in favour of <span class="math inline">\(H_0\)</span></li>
+<li>estimated given the unrestricted model estimation output</li>
+<li><code>verify_identification()</code> <code>verify_autoregression()</code></li>
 </ul>
 </section>
 <section id="bsvars-modeling-of-monetary-policy-1" class="slide level2" data-background-color="#00bf63">
@@ -786,37 +786,29 @@ SDDR = \frac{\Pr[H_0 | data]}{\Pr[H_1 | data]}= \frac{p(H_0 | data)}{p(H_0 )}
 <section id="bsvars-modeling-of-monetary-policy-2" class="slide level2">
 <h2><a href="https://bsvars.github.io" style="color:#8c52ff;">bsvars</a> modeling of monetary policy</h2>
 <h3 id="australian-domestic-sector.">Australian domestic sector.</h3>
-<p>Consider a system of five domestic variables:</p>
 <p><span class="math display">\[\begin{align}
 y_t = \begin{bmatrix} rgdp_t &amp; cpi_t &amp; CR_t &amp; EX_t &amp; aord_t \end{bmatrix}'
 \end{align}\]</span></p>
 <ul>
-<li><p><span class="math inline">\(rgdp_t\)</span> - log real Gross Domestic Product</p></li>
-<li><p><span class="math inline">\(cpi_t\)</span> - log Consumer Price Index</p></li>
-<li><p><span class="math inline">\(CR_t\)</span> - Cash Rate Target - Australian nominal interest rate</p></li>
-<li><p><span class="math inline">\(EX_t\)</span> - USD/AUD exchange rate</p></li>
-<li><p><span class="math inline">\(aord_t\)</span> - log All Ordinaries Index</p></li>
-<li><p>monthly data from August 1990 to March 2024</p></li>
-<li><p>quarterly variables interpolated to monthly frequency</p></li>
+<li>monthly data from August 1990 to March 2024</li>
+<li>quarterly variables interpolated to monthly frequency</li>
 </ul>
 </section>
 <section id="bsvars-modeling-of-monetary-policy-3" class="slide level2">
 <h2><a href="https://bsvars.github.io" style="color:#8c52ff;">bsvars</a> modeling of monetary policy</h2>
 <h3 id="foreign-sector.">Foreign sector.</h3>
-<p>The foreign sector includes three US variables:</p>
+<p><span class="math display">\[\begin{align}
+x_t = \begin{bmatrix} rgdp_t^{(US)} &amp; cpi_t^{(US)} &amp; FFR_t \end{bmatrix}'
+\end{align}\]</span></p>
 <ul>
-<li><span class="math inline">\(rgdp_t^{(US)}\)</span> - log real Gross Domestic Product</li>
-<li><span class="math inline">\(cpi_t^{(US)}\)</span> - log Consumer Price Index</li>
-<li><span class="math inline">\(FFR_t\)</span> - Cash Rate Target - Australian nominal interest rate</li>
 <li>monthly data from August 1990 to March 2024</li>
 <li>quarterly variables interpolated to monthly frequency</li>
 <li>contemporaneous and four lagged values are included in the model as exogenous variables</li>
 </ul>
 </section>
-<section id="section-18" class="slide level2">
+<section id="section-19" class="slide level2">
 <h2></h2>
-<p><img data-src="bsvars.png" class="absolute" style="right: 10px; width: 120px; "></p>
-<p><span class="math display">\[ \]</span></p>
+<p><img data-src="bsvars.png" class="absolute" style="top: 550px; right: 10px; width: 120px; "></p>
 <h3 id="zero-restriction-identified-system.">Zero-restriction-identified system.</h3>
 <p><span class="math display">\[\begin{align}
 \begin{bmatrix}
@@ -831,14 +823,13 @@ B_{0.51}&amp;B_{0.52}&amp;B_{0.53}&amp;B_{0.54}&amp;B_{0.55}
 \end{align}\]</span></p>
 <h3 id="identified-shocks.">Identified shocks.</h3>
 <ul>
-<li><span class="math inline">\(u_t^{mps}\)</span> - identified via Taylor’s Rule extended by exchange rate</li>
-<li><span class="math inline">\(u_t^{ex}\)</span> - currency shock indistinguishable from the monetary policy shock</li>
+<li><span class="math inline">\(u_t^{mps}\)</span> - monetary policy shock</li>
+<li><span class="math inline">\(u_t^{ex}\)</span> - currency shock</li>
 </ul>
 </section>
-<section id="section-19" class="slide level2">
+<section id="section-20" class="slide level2">
 <h2></h2>
-<p><img data-src="bsvars.png" class="absolute" style="right: 10px; width: 120px; "></p>
-<p><span class="math display">\[ \]</span></p>
+<p><img data-src="bsvars.png" class="absolute" style="top: 590px; right: 10px; width: 120px; "></p>
 <h3 id="specify-and-estimate-the-svar-sv.">Specify and estimate the SVAR-SV.</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(bsvars)</span>
@@ -866,11 +857,10 @@ B_{0.51}&amp;B_{0.52}&amp;B_{0.53}&amp;B_{0.54}&amp;B_{0.55}
 <span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>post          <span class="ot">=</span> <span class="fu">estimate</span>(burn, <span class="fl">1e4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="section-20" class="slide level2">
+<section id="section-21" class="slide level2">
 <h2></h2>
-<p><img data-src="bsvars.png" class="absolute" style="right: 10px; width: 120px; "></p>
-<p><span class="math display">\[ \]</span></p>
-<h3 id="svar-sv-compute-and-plot-impulse-responses.">SVAR-SV: Compute and plot impulse responses.</h3>
+<p><img data-src="bsvars.png" class="absolute" style="top: 550px; right: 10px; width: 120px; "></p>
+<h3 id="svar-sv-impulse-responses.">SVAR-SV: Impulse responses.</h3>
 <div class="cell" data-hash="index_cache/revealjs/bs00_dae4b9e6ef127effe1a2fdf3934196a1">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>post <span class="sc">|&gt;</span> <span class="fu">compute_impulse_responses</span>(<span class="at">horizon =</span> <span class="dv">60</span>) <span class="sc">|&gt;</span> <span class="fu">plot</span>(<span class="at">probability =</span> <span class="fl">0.68</span>, <span class="at">col =</span> <span class="st">"#00bf63"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -878,11 +868,10 @@ B_{0.51}&amp;B_{0.52}&amp;B_{0.53}&amp;B_{0.54}&amp;B_{0.55}
 </div>
 </div>
 </section>
-<section id="section-21" class="slide level2">
+<section id="section-22" class="slide level2">
 <h2></h2>
-<p><img data-src="bsvars.png" class="absolute" style="right: 10px; width: 120px; "></p>
-<p><span class="math display">\[ \]</span></p>
-<h3 id="svar-sv-forecast-error-variance-decompositions.">SVAR-SV: Forecast error variance decompositions.</h3>
+<p><img data-src="bsvars.png" class="absolute" style="top: 550px; right: 10px; width: 120px; "></p>
+<h3 id="svar-sv-forecast-error-variance-decompositions.">SVAR-SV: Forecast Error Variance decompositions.</h3>
 <div class="cell" data-hash="index_cache/revealjs/bs00fevd_8b2d7a64456475aaf38dcff434a63b68">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>post <span class="sc">|&gt;</span> <span class="fu">compute_variance_decompositions</span>(<span class="at">horizon =</span> <span class="dv">60</span>) <span class="sc">|&gt;</span> <span class="fu">plot</span>(<span class="at">col =</span> bsvars_grad)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -890,10 +879,9 @@ B_{0.51}&amp;B_{0.52}&amp;B_{0.53}&amp;B_{0.54}&amp;B_{0.55}
 </div>
 </div>
 </section>
-<section id="section-22" class="slide level2">
+<section id="section-23" class="slide level2">
 <h2></h2>
-<p><img data-src="bsvars.png" class="absolute" style="right: 10px; width: 120px; "></p>
-<p><span class="math display">\[ \]</span></p>
+<p><img data-src="bsvars.png" class="absolute" style="top: 550px; right: 10px; width: 120px; "></p>
 <h3 id="svar-sv-structural-shocks.">SVAR-SV: Structural shocks.</h3>
 <div class="cell" data-hash="index_cache/revealjs/bs00sss_19b96e0d36388fafef5e0e961044977e">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>post <span class="sc">|&gt;</span> <span class="fu">compute_structural_shocks</span>() <span class="sc">|&gt;</span> <span class="fu">plot</span>(<span class="at">col =</span> <span class="st">"#00bf63"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -902,11 +890,10 @@ B_{0.51}&amp;B_{0.52}&amp;B_{0.53}&amp;B_{0.54}&amp;B_{0.55}
 </div>
 </div>
 </section>
-<section id="section-23" class="slide level2">
+<section id="section-24" class="slide level2">
 <h2></h2>
-<p><img data-src="bsvars.png" class="absolute" style="right: 10px; width: 120px; "></p>
-<p><span class="math display">\[ \]</span></p>
-<h3 id="svar-sv-shocks-conditional-standard-deviations.">SVAR-SV: Shocks’ conditional standard deviations.</h3>
+<p><img data-src="bsvars.png" class="absolute" style="top: 550px; right: 10px; width: 120px; "></p>
+<h3 id="svar-sv-conditional-standard-deviations.">SVAR-SV: Conditional standard deviations.</h3>
 <div class="cell" data-hash="index_cache/revealjs/bs00csd_c60d72ed544bdfa18bd03a3775ed4779">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>post <span class="sc">|&gt;</span> <span class="fu">compute_conditional_sd</span>() <span class="sc">|&gt;</span> <span class="fu">plot</span>(<span class="at">col =</span> <span class="st">"#00bf63"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -914,10 +901,9 @@ B_{0.51}&amp;B_{0.52}&amp;B_{0.53}&amp;B_{0.54}&amp;B_{0.55}
 </div>
 </div>
 </section>
-<section id="section-24" class="slide level2">
+<section id="section-25" class="slide level2">
 <h2></h2>
-<p><img data-src="bsvars.png" class="absolute" style="right: 10px; width: 120px; "></p>
-<p><span class="math display">\[ \]</span></p>
+<p><img data-src="bsvars.png" class="absolute" style="top: 550px; right: 10px; width: 120px; "></p>
 <h3 id="svar-sv-identification-verification.">SVAR-SV: identification verification.</h3>
 <div class="cell" data-hash="index_cache/revealjs/bs00vv_2b77c9d824d6435bd83b4b20236dfea9">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>post <span class="sc">|&gt;</span> <span class="fu">verify_identification</span>() <span class="sc">|&gt;</span> <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -940,10 +926,9 @@ shock 5   -2.5202529  1.911860 7.445051e-02   0.9255495</code></pre>
 </div>
 </div>
 </section>
-<section id="section-25" class="slide level2">
+<section id="section-26" class="slide level2">
 <h2></h2>
-<p><img data-src="bsvars.png" class="absolute" style="right: 10px; width: 120px; "></p>
-<p><span class="math display">\[ \]</span></p>
+<p><img data-src="bsvars.png" class="absolute" style="top: 550px; right: 10px; width: 120px; "></p>
 <h3 id="svar-sv-fitted-values.">SVAR-SV: Fitted Values.</h3>
 <div class="cell" data-hash="index_cache/revealjs/bs00fit_c85a897e55cf4083266069293ea40735">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>post <span class="sc">|&gt;</span> <span class="fu">compute_fitted_values</span>() <span class="sc">|&gt;</span> <span class="fu">plot</span>(<span class="at">col =</span> <span class="st">"#00bf63"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -952,10 +937,9 @@ shock 5   -2.5202529  1.911860 7.445051e-02   0.9255495</code></pre>
 </div>
 </div>
 </section>
-<section id="section-26" class="slide level2">
+<section id="section-27" class="slide level2">
 <h2></h2>
-<p><img data-src="bsvars.png" class="absolute" style="right: 10px; width: 120px; "></p>
-<p><span class="math display">\[ \]</span></p>
+<p><img data-src="bsvars.png" class="absolute" style="top: 550px; right: 10px; width: 120px; "></p>
 <h3 id="svar-sv-does-foreign-sector-matter">SVAR-SV: Does foreign sector matter?</h3>
 <div class="cell" data-hash="index_cache/revealjs/bs00va_ef229dd988ef25ed74f8b522fc74e427">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>A0 <span class="ot">=</span> <span class="fu">matrix</span>(<span class="cn">NA</span>, <span class="dv">5</span>, <span class="dv">56</span>)</span>
@@ -975,10 +959,9 @@ shock 5   -2.5202529  1.911860 7.445051e-02   0.9255495</code></pre>
 </div>
 </div>
 </section>
-<section id="section-27" class="slide level2">
+<section id="section-28" class="slide level2">
 <h2></h2>
-<p><img data-src="bsvarSIGNs.png" class="absolute" style="right: 10px; width: 120px; "></p>
-<p><span class="math display">\[ \]</span></p>
+<p><img data-src="bsvarSIGNs.png" class="absolute" style="top: 550px; right: 10px; width: 120px; "></p>
 <h3 id="sign-restricted-system.">Sign-restricted system.</h3>
 <p><span class="math display">\[\begin{align}
 \begin{bmatrix}rgdp_t \\ cpi_t \\ CR_t \\ EX_t\\ aord_t \end{bmatrix} &amp;= \dots +
@@ -988,19 +971,16 @@ shock 5   -2.5202529  1.911860 7.445051e-02   0.9255495</code></pre>
 +&amp;*&amp;*&amp;*&amp;*\\
 *&amp;*&amp;*&amp;*&amp;*\\
 *&amp;*&amp;*&amp;*&amp;*\\
-\end{bmatrix}\begin{bmatrix} u_t^{ad} \\ u_t^{as} \\ u_t^{mps} \\ u_t^{ex} \\ u_t^{aord} \end{bmatrix}
+\end{bmatrix}\begin{bmatrix} u_t^{mps} \\ u_t^{*} \\ u_t^{*} \\ u_t^{*} \\ u_t^{*} \end{bmatrix}
 \end{align}\]</span></p>
 <h3 id="identified-shocks.-1">Identified shocks.</h3>
 <ul>
-<li><span class="math inline">\(u_t^{mps}\)</span> - identified via Taylor’s Rule extended by exchange rate</li>
-<li><span class="math inline">\(u_t^{ex}\)</span> - currency shock indistinguishable from the monetary policy shock</li>
-<li>identification through heteroskedasticity helps identifying the shocks</li>
+<li><span class="math inline">\(u_t^{mps}\)</span> - monetary policy shock</li>
 </ul>
 </section>
-<section id="section-28" class="slide level2">
+<section id="section-29" class="slide level2">
 <h2></h2>
-<p><img data-src="bsvarSIGNs.png" class="absolute" style="right: 10px; width: 120px; "></p>
-<p><span class="math display">\[ \]</span></p>
+<p><img data-src="bsvarSIGNs.png" class="absolute" style="top: 500px; right: 10px; width: 120px; "></p>
 <h3 id="specify-and-estimate-a-sign-restricted-svar.">Specify and estimate a sign-restricted SVAR.</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>sign_irf0     <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">22</span>)), <span class="dv">5</span>, <span class="dv">5</span>)</span>
@@ -1030,11 +1010,10 @@ shock 5   -2.5202529  1.911860 7.445051e-02   0.9255495</code></pre>
 </div>
 </div>
 </section>
-<section id="section-29" class="slide level2">
+<section id="section-30" class="slide level2">
 <h2></h2>
-<p><img data-src="bsvarSIGNs.png" class="absolute" style="right: 10px; width: 120px; "></p>
-<p><span class="math display">\[ \]</span></p>
-<h3 id="svar-compute-and-plot-impulse-responses.">SVAR: Compute and plot impulse responses.</h3>
+<p><img data-src="bsvarSIGNs.png" class="absolute" style="top: 550px; right: 10px; width: 120px; "></p>
+<h3 id="svar-impulse-responses.">SVAR: Impulse responses.</h3>
 <div class="cell" data-hash="index_cache/revealjs/bs01_53cd8933cf5d95e0ef3a302883027c40">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>post <span class="sc">|&gt;</span> <span class="fu">compute_impulse_responses</span>(<span class="at">horizon =</span> <span class="dv">60</span>) <span class="sc">|&gt;</span> <span class="fu">plot</span>(<span class="at">probability =</span> <span class="fl">0.68</span>, <span class="at">col =</span> <span class="st">"#00bf63"</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -1042,10 +1021,9 @@ shock 5   -2.5202529  1.911860 7.445051e-02   0.9255495</code></pre>
 </div>
 </div>
 </section>
-<section id="section-30" class="slide level2">
+<section id="section-31" class="slide level2">
 <h2></h2>
-<p><img data-src="bsvarSIGNs.png" class="absolute" style="right: 10px; width: 120px; "></p>
-<p><span class="math display">\[ \]</span></p>
+<p><img data-src="bsvarSIGNs.png" class="absolute" style="top: 550px; right: 10px; width: 120px; "></p>
 <h3 id="svar-forecast-error-variance-decompositions.">SVAR: Forecast error variance decompositions.</h3>
 <div class="cell" data-hash="index_cache/revealjs/bs01fevd_e8b82aa3d3c80bfa17507d47c38dbf3a">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>post <span class="sc">|&gt;</span> <span class="fu">compute_variance_decompositions</span>(<span class="at">horizon =</span> <span class="dv">60</span>) <span class="sc">|&gt;</span> <span class="fu">plot</span>(<span class="at">col =</span> bsvars_grad )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1054,10 +1032,9 @@ shock 5   -2.5202529  1.911860 7.445051e-02   0.9255495</code></pre>
 </div>
 </div>
 </section>
-<section id="section-31" class="slide level2">
+<section id="section-32" class="slide level2">
 <h2></h2>
-<p><img data-src="bsvarSIGNs.png" class="absolute" style="right: 10px; width: 120px; "></p>
-<p><span class="math display">\[ \]</span></p>
+<p><img data-src="bsvarSIGNs.png" class="absolute" style="top: 550px; right: 10px; width: 120px; "></p>
 <h3 id="svar-structural-shocks.">SVAR: Structural shocks.</h3>
 <div class="cell" data-hash="index_cache/revealjs/bs01sss_77b26ad7daeddd2ece660731d98d4ca4">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>post <span class="sc">|&gt;</span> <span class="fu">compute_structural_shocks</span>() <span class="sc">|&gt;</span> <span class="fu">plot</span>(<span class="at">col =</span> <span class="st">"#00bf63"</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1066,10 +1043,9 @@ shock 5   -2.5202529  1.911860 7.445051e-02   0.9255495</code></pre>
 </div>
 </div>
 </section>
-<section id="section-32" class="slide level2">
+<section id="section-33" class="slide level2">
 <h2></h2>
-<p><img data-src="bsvarSIGNs.png" class="absolute" style="right: 10px; width: 120px; "></p>
-<p><span class="math display">\[ \]</span></p>
+<p><img data-src="bsvarSIGNs.png" class="absolute" style="top: 550px; right: 10px; width: 120px; "></p>
 <h3 id="svar-fitted-values.">SVAR: Fitted values.</h3>
 <div class="cell" data-hash="index_cache/revealjs/bs01ff_44f6811c3e3e18d0c326a539b83e934b">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>post <span class="sc">|&gt;</span> <span class="fu">compute_fitted_values</span>() <span class="sc">|&gt;</span> <span class="fu">plot</span>(<span class="at">col =</span> <span class="st">"#00bf63"</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1078,7 +1054,7 @@ shock 5   -2.5202529  1.911860 7.445051e-02   0.9255495</code></pre>
 </div>
 </div>
 </section>
-<section id="section-33" class="slide level2" data-background-color="#00bf63">
+<section id="section-34" class="slide level2" data-background-color="#00bf63">
 <h2></h2>
 <p><img data-src="bsvars.png" class="absolute" style="top: 40px; right: 540px; width: 500px; "> <img data-src="bsvarSIGNs.png" class="absolute" style="top: 40px; right: 10px; width: 500px; "></p>
 <div class="footer footer-default">

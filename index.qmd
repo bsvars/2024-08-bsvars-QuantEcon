@@ -30,11 +30,11 @@ bsvars_grad = grDevices::colorRampPalette(c(bspink, bsyell))(5)
 
 ##  {background-color="#00bf63"}
 
-![](bsvars.png){.absolute top=40 right=540 width="450"}
-![](bsvarSIGNs.png){.absolute top=40 right=10 width="450"}
+![](bsvars.png){.absolute top=70 right=540 width="450"}
+![](bsvarSIGNs.png){.absolute top=70 right=10 width="450"}
 
 
-![](QuantEcon.png){.absolute top=550 right=400 width="200"}
+[![](QuantEcon.png){.absolute top=550 right=400 width="200"}](https://quantecon.org/)
 
 
 ## {background-color="#00bf63"}
@@ -42,9 +42,9 @@ bsvars_grad = grDevices::colorRampPalette(c(bspink, bsyell))(5)
 
 ### This presentation{style="color:#8c52ff;"}
 
-#### Slides as a [Website](https://bsvars.github.io/2024-08-bsvars-monash/){style="color:#8c52ff;"} {style="color:white;"}
+#### Slides as a [Website](https://bsvars.github.io/2024-08-bsvars-QuantEcon/){style="color:#8c52ff;"} {style="color:white;"}
 
-#### GitHub [repo](https://github.com/bsvars/2024-08-bsvars-monash){style="color:#8c52ff;"} to reproduce the slides and results {style="color:white;"}
+#### GitHub [repo](https://github.com/bsvars/2024-08-bsvars-QuantEcon){style="color:#8c52ff;"} to reproduce the slides and results {style="color:white;"}
 
 $$ $$
 
@@ -105,8 +105,6 @@ $$ $$
 
 ## [bsvars](https://bsvars.github.io){style="color:#8c52ff;"} features {background-color="#00bf63"}
 
-$$ $$
-
 - Bayesian estimation of Structural VARs
 - coherent code structure, workflows, and objects
 - excellent computational speed
@@ -127,7 +125,6 @@ $$ $$
 ![](bsvars.png){width="150"}
 
 - 5 volatility & 3 non-normal models
-- identification using 
   - exclusion restrictions
   - heteroskedasticity, and
   - non-normality
@@ -138,7 +135,6 @@ $$ $$
 ![](bsvarSIGNs.png){width="150"}
 
 - flexible Bayesian VAR
-- identification using 
   - sign restrictions
   - sign & zero restrictions
   - narrative restrictions
@@ -238,6 +234,37 @@ csds = compute_conditional_sd(post)
 sddr = verify_identification(post)
 ```
 
+:::
+  
+::: {.column width="50%"}
+![](bsvarSIGNs.png){width="150"}
+
+
+- structural analyses
+```{r}
+#| eval: false
+irfs = compute_impulse_responses(post , horizon = 12)
+fevd = compute_variance_decompositions(post, horizon = 12)
+hds  = compute_historical_decompositions(post)
+ss   = compute_structural_shocks(post)
+csds = compute_conditional_sd(post)
+```
+
+:::
+  
+::::
+
+
+
+
+
+## {background-color="#00bf63"}
+
+:::: {.columns}
+
+::: {.column width="50%"}
+![](bsvars.png){width="150"}
+
 - predictive analyses
 
 ```{r}
@@ -260,17 +287,6 @@ summary(irfs)
 ::: {.column width="50%"}
 ![](bsvarSIGNs.png){width="150"}
 
-
-- structural analyses
-```{r}
-#| eval: false
-irfs = compute_impulse_responses(post , horizon = 12)
-fevd = compute_variance_decompositions(post, horizon = 12)
-hds  = compute_historical_decompositions(post)
-ss   = compute_structural_shocks(post)
-csds = compute_conditional_sd(post)
-```
-
 - predictive analyses
 
 ```{r}
@@ -290,6 +306,9 @@ summary(irfs)
 :::
   
 ::::
+
+
+
 
 
 
@@ -388,8 +407,6 @@ post |> forecast(horizon = 12) |> plot()
 
 ![](bsvars.png){.absolute right=10 width="120"}
 
-$$ $$
-
 ### Structural VAR
 \begin{align}
 \text{reduced form:}&&\mathbf{y}_t &= \mathbf{A}\mathbf{x}_t + \boldsymbol{\varepsilon}_t \\
@@ -398,15 +415,9 @@ $$ $$
 \end{align}
 
 - interpretable structural specification
-- identification through 
-  - exclusion restrictions
-  - heteroskedasticity
-  - non-normality
+- identification via: exclusion restrictions, heteroskedasticity, and/or non-normality
 - facilitates application of frontier numerical techniques
 - features 3-level equation-specific local-global prior shrinkage
-
-
-
 
 
 
@@ -414,10 +425,9 @@ $$ $$
 
 ![](bsvarSIGNs.png){.absolute right=10 width="120"}
 
-$$ $$
-
 ### Structural VAR
 \begin{align}
+&\\
 \text{reduced form:}&&\mathbf{y}_t &= \mathbf{A}\mathbf{x}_t + \boldsymbol{\varepsilon}_t \\
 \text{error term:}&&\boldsymbol{\varepsilon}_t\mid\mathbf{x}_t &\sim N\left( \mathbf{0}_N, \boldsymbol{\Sigma} \right)\\
 \text{rotation:}&&\mathbf{Q} &\sim Haar \\
@@ -425,11 +435,9 @@ $$ $$
 \end{align}
 
 - identification through 
-  - sign & zero restrictions on structural matrix or impulse responses
-  - narrative restrictions on shocks
-  - all at once!
-- facilitates independent sampling & application of frontier numerical techniques
-- features Minnesota and dummy observation priors with estimated shrinkage
+- sign & zero restrictions on structural matrix or impulse responses, and narrative restrictions on shocks
+- independent sampling & numerical techniques
+- estimated Minnesota and dummy observation priors
 
 
 
@@ -438,11 +446,11 @@ $$ $$
 
 ![](bsvars.png){.absolute right=10 width="120"}
 
-$$ $$
 
 ### Non-centred Stochastic Volatility
 
 \begin{align}
+&\\
 \text{conditional variance:}&&\sigma_{n.t}^2 &= \exp\left\{\omega_n h_{n.t}\right\}\\
 \text{log-volatility:}&&h_{n.t} &= \rho_n h_{n.t-1} + v_{n.t}\\ 
 \text{volatility innovation:}&&v_{n.t}&\sim N\left(0,1\right)\\
@@ -450,7 +458,7 @@ $$ $$
 
 - excellent volatility forecasting performance
 - standardization around $\sigma_{n.t}^2 = 1$
-- `verify_identification()` by checking $H_0:\quad\omega_n = 0$
+- `verify_identification()` by checking $H_0:\omega_n = 0$
 
 
 
@@ -533,20 +541,20 @@ abline(h = 0, lwd = 0.5)
 
 ![](bsvars.png){.absolute right=10 width="120"}
 
-$$ $$
 
 ### Markov-switching and mixture models.
 
 \begin{align}
-\text{structural shocks:}&&\mathbf{u}_t\mid s_t &\sim N\left( \mathbf{0}_N, \text{diag}\left(\boldsymbol{\sigma}_{s_t}^2\right) \right)\\
-\text{prior & standardisation:}&& M^{-1}\left(\boldsymbol{\sigma}_{1}^2, \dots, \boldsymbol{\sigma}_{M}^2\right) &\sim Dirichlet(\underline{a}\boldsymbol\imath')\\
-\text{latent process:}&& s_t&\sim \text{Markov or independent}
+&\\
+\text{structural shocks:}&&\mathbf{u}_t\mid s_t \sim N\left( \mathbf{0}_N, \text{diag}\left(\boldsymbol{\sigma}_{s_t}^2\right) \right)\\
+\text{prior:}&& M^{-1}\left(\boldsymbol{\sigma}_{1}^2, \dots, \boldsymbol{\sigma}_{M}^2\right) \sim Dirichlet(\underline{a}\boldsymbol\imath')\\
+\text{latent process:}&& s_t\sim \text{Markov or independent}
 \end{align}
 
-- modeling Markov-switching or mixture models
+- modelling Markov-switching or mixture models
 - non-normality provides identification information
 - potential gains in forecasting precision
-- `verify_identification()`  by checking $H_0:\quad\boldsymbol{\sigma}_{1}^2, \dots, \boldsymbol{\sigma}_{M}^2 = 1$
+- `verify_identification()`  by checking $H_0:\boldsymbol{\sigma}_{1}^2, \dots, \boldsymbol{\sigma}_{M}^2 = 1$
 
 
 
@@ -556,11 +564,10 @@ $$ $$
 
 ![](bsvars.png){.absolute right=10 width="120"}
 
-$$ $$
-
 ### Student-t shocks.
 
 \begin{align}
+&&&\\
 \text{structural shocks:}&&\mathbf{u}_t\mid\mathbf{x}_t &\sim t\left( \mathbf{0}_N, \mathbf{I}_N, \nu \right)
 \end{align}
 
@@ -568,7 +575,7 @@ $$ $$
 - fat tails provide identification information
 - potential gains in forecasting precision
 - robustness to outliers
-- `verify_identification()`  by checking $H_0:\quad\nu \rightarrow\infty$
+- `verify_identification()`  by checking $H_0:\nu \rightarrow\infty$
 
 
 
@@ -584,7 +591,7 @@ $$ $$
 
 ![](bsvars.png){.absolute right=10 width="120"}
 
-### Student-t shocks.{style="color:#FFFFFF;"}
+### Heteroskedastic or non-normal shocks.{style="color:#FFFFFF;"}
 ```{r}
 #| echo: false
 set.seed(1)
@@ -626,7 +633,7 @@ plot(
   bty="n", pch = 16,
   ylab = "", xlab = "x",
   axes = FALSE,
-  main = "non-normal"
+  main = "heteroskedastic or non-normal"
 )
 abline(a = 0, b = 1, col = "#8c52ff")
 abline(a = 0, b = -1, col = "#8c52ff")
@@ -640,20 +647,18 @@ abline(a = 0, b = -1, col = "#8c52ff")
 
 ![](bsvars.png){.absolute right=10 width="120"}
 
-$$ $$
 
 ### Identification verification via SDDR.
 
-Verify the restriction through the posterior odds ratio using the SDDR:
 $$
 SDDR = \frac{\Pr[H_0 | data]}{\Pr[H_1 | data]}= \frac{p(H_0 | data)}{p(H_0 )}
 $$
 
 - suitable to verify sharp restrictions on parameters
 - is interpreted as posterior odds ratio
-- values greater than 1 provide evidence in favour of the restriction
-- simple to compute given the unrestricted model estimation output
-- see methods `verify_identification()` and `verify_autoregression()`
+- values greater than 1: evidence in favour of $H_0$
+- estimated given the unrestricted model estimation output
+- `verify_identification()` `verify_autoregression()`
 
 
 
@@ -668,17 +673,9 @@ $$
 
 ### Australian domestic sector.
 
-Consider a system of five domestic variables:
-
 \begin{align}
 y_t = \begin{bmatrix} rgdp_t & cpi_t & CR_t & EX_t & aord_t \end{bmatrix}'
 \end{align}
-
-- $rgdp_t$ - log real Gross Domestic Product
-- $cpi_t$ - log Consumer Price Index
-- $CR_t$ - Cash Rate Target - Australian nominal interest rate
-- $EX_t$ - USD/AUD exchange rate
-- $aord_t$ - log All Ordinaries Index
 
 - monthly data from August 1990 to March 2024
 - quarterly variables interpolated to monthly frequency
@@ -690,11 +687,10 @@ y_t = \begin{bmatrix} rgdp_t & cpi_t & CR_t & EX_t & aord_t \end{bmatrix}'
 
 ### Foreign sector.
 
-The foreign sector includes three US variables:
+\begin{align}
+x_t = \begin{bmatrix} rgdp_t^{(US)} & cpi_t^{(US)} & FFR_t \end{bmatrix}'
+\end{align}
 
-- $rgdp_t^{(US)}$ - log real Gross Domestic Product
-- $cpi_t^{(US)}$ - log Consumer Price Index
-- $FFR_t$ - Cash Rate Target - Australian nominal interest rate
 - monthly data from August 1990 to March 2024
 - quarterly variables interpolated to monthly frequency
 - contemporaneous and four lagged values are included in the model as exogenous variables
@@ -703,9 +699,7 @@ The foreign sector includes three US variables:
 
 ## 
 
-![](bsvars.png){.absolute right=10 width="120"}
-
-$$ $$
+![](bsvars.png){.absolute top=550 right=10 width="120"}
 
 ### Zero-restriction-identified system.
 
@@ -723,8 +717,8 @@ B_{0.51}&B_{0.52}&B_{0.53}&B_{0.54}&B_{0.55}
 
 ### Identified shocks.
 
-- $u_t^{mps}$ - identified via Taylor's Rule extended by exchange rate
-- $u_t^{ex}$ - currency shock indistinguishable from the monetary policy shock
+- $u_t^{mps}$ - monetary policy shock
+- $u_t^{ex}$ - currency shock
 
 
 
@@ -733,9 +727,8 @@ B_{0.51}&B_{0.52}&B_{0.53}&B_{0.54}&B_{0.55}
 
 ## 
 
-![](bsvars.png){.absolute right=10 width="120"}
+![](bsvars.png){.absolute top=590 right=10 width="120"}
 
-$$ $$
 
 ### Specify and estimate the SVAR-SV.
 
@@ -778,11 +771,9 @@ load("bsvars01.rda")
 
 ## 
 
-![](bsvars.png){.absolute right=10 width="120"}
+![](bsvars.png){.absolute top=550 right=10 width="120"}
 
-$$ $$
-
-### SVAR-SV: Compute and plot impulse responses.
+### SVAR-SV: Impulse responses.
 
 ```{r bs00}
 #| cache: true
@@ -793,11 +784,9 @@ post |> compute_impulse_responses(horizon = 60) |> plot(probability = 0.68, col 
 
 ## 
 
-![](bsvars.png){.absolute right=10 width="120"}
+![](bsvars.png){.absolute top=550 right=10 width="120"}
 
-$$ $$
-
-### SVAR-SV: Forecast error variance decompositions.
+### SVAR-SV: Forecast Error Variance decompositions.
 
 ```{r bs00fevd}
 #| cache: true
@@ -808,9 +797,8 @@ post |> compute_variance_decompositions(horizon = 60) |> plot(col = bsvars_grad)
 
 ## 
 
-![](bsvars.png){.absolute right=10 width="120"}
+![](bsvars.png){.absolute top=550 right=10 width="120"}
 
-$$ $$
 
 ### SVAR-SV: Structural shocks.
 
@@ -824,11 +812,10 @@ post |> compute_structural_shocks() |> plot(col = "#00bf63")
 
 ## 
 
-![](bsvars.png){.absolute right=10 width="120"}
+![](bsvars.png){.absolute top=550 right=10 width="120"}
 
-$$ $$
 
-### SVAR-SV: Shocks' conditional standard deviations.
+### SVAR-SV: Conditional standard deviations.
 
 ```{r bs00csd}
 #| cache: true
@@ -839,9 +826,7 @@ post |> compute_conditional_sd() |> plot(col = "#00bf63")
 
 ## 
 
-![](bsvars.png){.absolute right=10 width="120"}
-
-$$ $$
+![](bsvars.png){.absolute top=550 right=10 width="120"}
 
 ### SVAR-SV: identification verification.
 
@@ -855,9 +840,7 @@ post |> verify_identification() |> summary()
 
 ## 
 
-![](bsvars.png){.absolute right=10 width="120"}
-
-$$ $$
+![](bsvars.png){.absolute top=550 right=10 width="120"}
 
 ### SVAR-SV: Fitted Values.
 
@@ -871,9 +854,7 @@ post |> compute_fitted_values() |> plot(col = "#00bf63")
 
 ## 
 
-![](bsvars.png){.absolute right=10 width="120"}
-
-$$ $$
+![](bsvars.png){.absolute top=550 right=10 width="120"}
 
 ### SVAR-SV: Does foreign sector matter?
 
@@ -892,9 +873,7 @@ post |> verify_autoregression(hypothesis = A0) |> summary()
 
 ## 
 
-![](bsvarSIGNs.png){.absolute right=10 width="120"}
-
-$$ $$
+![](bsvarSIGNs.png){.absolute top=550 right=10 width="120"}
 
 ### Sign-restricted system.
 
@@ -906,24 +885,19 @@ $$ $$
 +&*&*&*&*\\
 *&*&*&*&*\\
 *&*&*&*&*\\
-\end{bmatrix}\begin{bmatrix} u_t^{ad} \\ u_t^{as} \\ u_t^{mps} \\ u_t^{ex} \\ u_t^{aord} \end{bmatrix}
+\end{bmatrix}\begin{bmatrix} u_t^{mps} \\ u_t^{*} \\ u_t^{*} \\ u_t^{*} \\ u_t^{*} \end{bmatrix}
 \end{align}
 
 ### Identified shocks.
 
-- $u_t^{mps}$ - identified via Taylor's Rule extended by exchange rate
-- $u_t^{ex}$ - currency shock indistinguishable from the monetary policy shock
-- identification through heteroskedasticity helps identifying the shocks
-
+- $u_t^{mps}$ - monetary policy shock
 
 
 
 
 ## 
 
-![](bsvarSIGNs.png){.absolute right=10 width="120"}
-
-$$ $$
+![](bsvarSIGNs.png){.absolute top=500 right=10 width="120"}
 
 ### Specify and estimate a sign-restricted SVAR.
 
@@ -970,11 +944,10 @@ load("bsvars07.rda")
 
 ## 
 
-![](bsvarSIGNs.png){.absolute right=10 width="120"}
+![](bsvarSIGNs.png){.absolute top=550 right=10 width="120"}
 
-$$ $$
 
-### SVAR: Compute and plot impulse responses.
+### SVAR: Impulse responses.
 
 ```{r bs01}
 #| cache: true
@@ -984,9 +957,7 @@ post |> compute_impulse_responses(horizon = 60) |> plot(probability = 0.68, col 
 
 ## 
 
-![](bsvarSIGNs.png){.absolute right=10 width="120"}
-
-$$ $$
+![](bsvarSIGNs.png){.absolute top=550 right=10 width="120"}
 
 ### SVAR: Forecast error variance decompositions.
 
@@ -998,9 +969,8 @@ post |> compute_variance_decompositions(horizon = 60) |> plot(col = bsvars_grad 
 
 ## 
 
-![](bsvarSIGNs.png){.absolute right=10 width="120"}
+![](bsvarSIGNs.png){.absolute top=550 right=10 width="120"}
 
-$$ $$
 
 ### SVAR: Structural shocks.
 
@@ -1013,9 +983,8 @@ post |> compute_structural_shocks() |> plot(col = "#00bf63" )
 
 ## 
 
-![](bsvarSIGNs.png){.absolute right=10 width="120"}
+![](bsvarSIGNs.png){.absolute top=550 right=10 width="120"}
 
-$$ $$
 
 ### SVAR: Fitted values.
 
